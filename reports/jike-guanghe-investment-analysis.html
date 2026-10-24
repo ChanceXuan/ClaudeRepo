@@ -1,0 +1,1426 @@
+<title>极刻光核投资分析</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: research memo — sticky contents rail on the left, one reading column on the right; stacks to a single column on phones. */
+:root {
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --ink: #16212b;
+  --muted: #5a6774;
+  --rule: #d8dfe6;
+  --accent: #1d58a3;
+  --accent-soft: #e5edf7;
+  --ok: #1d7448;
+  --ok-soft: #e2f2e9;
+  --warn: #8f5a06;
+  --warn-soft: #fbefd9;
+  --bad: #ad2a20;
+  --bad-soft: #fbe5e2;
+  --font-display: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  --font-body: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f151b; --surface: #151d25; --ink: #e2e8ee; --muted: #97a4b1; --rule: #283440;
+    --accent: #84b2ee; --accent-soft: #1a2a3d;
+    --ok: #66c595; --ok-soft: #16301f; --warn: #e5ad52; --warn-soft: #36290f; --bad: #f2897e; --bad-soft: #3a1b18;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f151b; --surface: #151d25; --ink: #e2e8ee; --muted: #97a4b1; --rule: #283440;
+  --accent: #84b2ee; --accent-soft: #1a2a3d;
+  --ok: #66c595; --ok-soft: #16301f; --warn: #e5ad52; --warn-soft: #36290f; --bad: #f2897e; --bad-soft: #3a1b18;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15.5px;
+  line-height: 1.75;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 64px;
+}
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+/* Header */
+.masthead { max-width: 1180px; margin: 0 auto; padding-block: 40px 28px; border-bottom: 1px solid var(--rule); display: grid; gap: 20px; }
+.eyebrow { font-size: 12.5px; letter-spacing: .12em; color: var(--muted); text-transform: uppercase; }
+.masthead h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(28px, 4.6vw, 42px); line-height: 1.25; margin: 0; text-wrap: balance; }
+.masthead .sub { color: var(--muted); margin: 0; font-size: 15px; }
+.mzm { width: 100%; max-width: 420px; height: auto; display: block; }
+.mzm .wg { fill: none; stroke: var(--accent); stroke-width: 2; }
+.mzm .el { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1; }
+.mzm text { fill: var(--muted); font-family: var(--font-mono); font-size: 10px; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0; margin: 0; border-top: 1px solid var(--rule); }
+.facts div { padding: 12px 16px 12px 0; border-bottom: 1px solid var(--rule); min-width: 0; }
+.facts dt { font-size: 12px; color: var(--muted); letter-spacing: .06em; }
+.facts dd { margin: 2px 0 0; font-weight: 500; font-variant-numeric: tabular-nums; }
+.verdict { display: inline-block; background: var(--accent); color: var(--surface); padding: 1px 10px; border-radius: 3px; font-size: 14px; font-weight: 700; }
+.notice { background: var(--warn-soft); color: var(--ink); padding: 14px 18px; border-radius: 6px; font-size: 14px; line-height: 1.7; }
+.notice strong { color: var(--warn); }
+
+/* Two-column frame */
+.frame { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 228px minmax(0, 1fr); gap: 48px; padding-top: 32px; }
+.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); align-self: start; max-height: calc(100vh - 48px); overflow-y: auto; font-size: 14px; }
+.toc summary { list-style: none; font-size: 12px; letter-spacing: .12em; color: var(--muted); padding-bottom: 8px; cursor: default; }
+.toc summary::-webkit-details-marker { display: none; }
+.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.toc a { display: block; padding: 5px 10px; color: var(--muted); text-decoration: none; border-radius: 4px; line-height: 1.45; }
+.toc a:hover { color: var(--ink); background: var(--accent-soft); }
+.toc a.active { color: var(--accent); background: var(--accent-soft); font-weight: 500; }
+
+/* Article */
+main { min-width: 0; }
+.chapter { padding-block: 8px 28px; border-bottom: 1px solid var(--rule); }
+.chapter:last-child { border-bottom: 0; }
+main h2 { font-family: var(--font-display); font-weight: 700; font-size: 26px; line-height: 1.35; margin: 28px 0 14px; text-wrap: balance; scroll-margin-top: 20px; }
+main h3 { font-size: 18px; font-weight: 700; line-height: 1.45; margin: 30px 0 10px; text-wrap: balance; scroll-margin-top: 20px; }
+main p, main li { max-width: 68ch; }
+main ul, main ol { padding-left: 1.4em; }
+main li + li { margin-top: 4px; }
+main strong { font-weight: 700; }
+main hr { border: 0; border-top: 1px dashed var(--rule); margin: 28px 0; }
+blockquote { margin: 16px 0; padding: 12px 18px; background: var(--accent-soft); border-radius: 6px; font-size: 14.5px; }
+blockquote p { margin: 0; max-width: none; }
+
+.table-wrap { overflow-x: auto; margin: 14px 0 20px; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; line-height: 1.6; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--rule); }
+th { background: var(--bg); font-weight: 700; white-space: nowrap; color: var(--ink); }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 500; min-width: 6em; }
+
+.st { display: inline-block; font-size: 11.5px; font-weight: 500; line-height: 1.6; padding: 0 7px; border-radius: 3px; white-space: nowrap; vertical-align: 2px; margin-left: 4px; }
+.st-ok { color: var(--ok); background: var(--ok-soft); }
+.st-part { color: var(--warn); background: var(--warn-soft); }
+.st-no { color: var(--bad); background: var(--bad-soft); }
+
+.foot { max-width: 1180px; margin: 40px auto 0; padding-top: 16px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 12.5px; }
+
+@media (max-width: 900px) {
+  .frame { grid-template-columns: minmax(0, 1fr); gap: 8px; padding-top: 20px; }
+  .toc { position: static; max-height: none; border: 1px solid var(--rule); border-radius: 6px; padding: 10px 12px; background: var(--surface); }
+  .toc summary { cursor: pointer; padding-bottom: 0; }
+  .toc[open] summary { padding-bottom: 8px; }
+  .toc summary::after { content: " ▾"; }
+  main h2 { font-size: 22px; }
+  .masthead { padding-block: 28px 22px; }
+}
+</style>
+
+<header class="masthead">
+  <div class="eyebrow">一级市场投资分析 · 薄膜铌酸锂（TFLN）高速光芯片</div>
+  <h1>极刻光核投资分析报告</h1>
+  <p class="sub">苏州极刻光核科技有限公司 · Suzhou Lycore Technologies · 薄膜铌酸锂 IDM</p>
+  <svg class="mzm" viewBox="0 0 420 70" role="img" aria-label="马赫-曾德尔调制器示意：光在输入端分成两臂，经电极调制后再合束输出">
+    <path class="wg" d="M4 35 H80 C110 35 110 14 140 14 H280 C310 14 310 35 340 35 H416"/>
+    <path class="wg" d="M80 35 C110 35 110 56 140 56 H280 C310 56 310 35 340 35"/>
+    <rect class="el" x="150" y="2" width="120" height="7" rx="1"/>
+    <rect class="el" x="150" y="31" width="120" height="8" rx="1"/>
+    <rect class="el" x="150" y="61" width="120" height="7" rx="1"/>
+    <text x="4" y="28">光输入</text>
+    <text x="368" y="28">调制输出</text>
+    <text x="190" y="52">RF 电极</text>
+  </svg>
+  <dl class="facts">
+    <div><dt>编制日期</dt><dd>2026-10-24</dd></div>
+    <div><dt>成立时间</dt><dd>2019-04-11 · 苏州工业园区</dd></div>
+    <div><dt>最新融资</dt><dd>C 轮 · 2026-04 · 君澜资本</dd></div>
+    <div><dt>投资建议</dt><dd><span class="verdict">有条件推进（谨慎积极）</span></dd></div>
+  </dl>
+  <div class="notice"><strong>重要声明：</strong>极刻光核为非上市公司，营收、利润、产能、客户名单和最新估值均未公开披露。报告中涉及估值和收入的数字，凡未注明来源的，均为情景假设，仅用于搭建决策框架，必须用尽职调查数据替换后才能用于投资决策。信息来源包括公开媒体报道、创投数据库、上市公司公告和互动平台，以及行业研报转载。</div>
+</header>
+
+<div class="frame">
+  <details class="toc" id="toc" open>
+    <summary>目录</summary>
+    <ol>
+<li><a href="#s1">一、结论摘要</a></li>
+<li><a href="#s2">二、标的概况</a></li>
+<li><a href="#s3">三、核心经营问题逐项分析（10 问）</a></li>
+<li><a href="#s4">四、投资逻辑</a></li>
+<li><a href="#s5">五、竞争格局</a></li>
+<li><a href="#s6">六、投资预期与估值框架</a></li>
+<li><a href="#s7">七、投资风险</a></li>
+<li><a href="#s8">八、尽职调查资料清单（按第三章 10 问整理）</a></li>
+<li><a href="#s9">九、投资决策建议</a></li>
+<li><a href="#s10">参考来源</a></li>
+    </ol>
+  </details>
+  <main>
+<section class="chapter"><h2 id="s1">一、结论摘要</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>判断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>赛道</td>
+<td>薄膜铌酸锂（TFLN）高速调制器/光子芯片，是AI算力光互连从 1.6T 走向 3.2T、单通道 200G 走向 400G 时的关键候选技术，<strong>赛道景气度高、确定性中等</strong></td>
+</tr>
+<tr>
+<td>标的定位</td>
+<td>国内最早一批（2019年成立）专注 TFLN <strong>IDM 模式</strong>的创业公司；核心能力在刻蚀工艺；产业方股东含中际旭创、源杰科技</td>
+</tr>
+<tr>
+<td>核心优势</td>
+<td>工艺积累较早；有光模块龙头作为产业股东，导入客户的渠道较顺；连续多轮融资（2019–2026 共约 5–6 轮）</td>
+</tr>
+<tr>
+<td>核心疑问</td>
+<td>公开信息中<strong>看不到可验证的量产出货、营收和客户数据</strong>，市场声量明显落后于铌奥光电、易缆微；单轮融资规模远小于海外龙头 HyperLight（2026年6月C轮 8000 万美元）</td>
+</tr>
+<tr>
+<td>经营数据（10 问）</td>
+<td>财务、产能良率、出货、客户名单、研发费用<strong>均未公开</strong>。可确认或可推断的有：<strong>产品以调制器芯片和器件为主，不做模块</strong>；LNOI 晶圆大概率外采（济南晶正等）；TFLN 对应的模块速率主要是 1.6T、3.2T 和相干方案，而不是 400G/800G；创始人梁寒潇持股约 25.26%，宋一品约 10.25%，共 26 名股东；最新一轮是 2026 年 4 月 C 轮（君澜资本，金额未披露）。详见第三章</td>
+</tr>
+<tr>
+<td>主要风险</td>
+<td>技术路线被硅光/InP 挤压；量产良率与可靠性；国内同质化竞争和价格战；IDM 重资产带来的持续融资需求；估值随 TFLN 题材过热；<strong>部分专利归属南京主体，需要核实知识产权完整性</strong></td>
+</tr>
+<tr>
+<td><strong>投资建议</strong></td>
+<td><strong>有条件推进（谨慎积极）</strong>：赛道值得配置，标的具备入围资格，但必须以尽调核实"量产与客户"为前提，并严守估值纪律、采用分期/对赌等结构化条款。尽调未通过关键门槛则<strong>放弃</strong>，转而考虑同赛道其他标的或上游材料</td>
+</tr>
+</tbody>
+</table></div>
+</section><section class="chapter"><h2 id="s2">二、标的概况</h2>
+<h3 id="s10-1">2.1 基本信息</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全称</td>
+<td>苏州极刻光核科技有限公司（英文名 Suzhou Lycore Technologies Co., Ltd.）</td>
+</tr>
+<tr>
+<td>成立时间</td>
+<td>2019-04-11</td>
+</tr>
+<tr>
+<td>注册资本</td>
+<td>534.186241 万元（工商平台最新数据，核准日期 2026-04-15）；股东 26 名</td>
+</tr>
+<tr>
+<td>团队规模</td>
+<td>招聘平台显示 1–49 人（可能未更新，需核实）</td>
+</tr>
+<tr>
+<td>注册地</td>
+<td>江苏省苏州工业园区</td>
+</tr>
+<tr>
+<td>法定代表人/创始人</td>
+<td>梁寒潇（创始人、总经理），美国罗切斯特大学电子工程博士，博士期间即专注薄膜铌酸锂刻蚀等关键工艺研究</td>
+</tr>
+<tr>
+<td>商业模式</td>
+<td>薄膜铌酸锂 <strong>IDM</strong>（设计 + 制造一体化），并提供 TFLN 器件加工、精密微纳加工服务</td>
+</tr>
+<tr>
+<td>产品方向</td>
+<td>高端光通信芯片（高速电光调制器）、激光传感芯片</td>
+</tr>
+<tr>
+<td>应用领域</td>
+<td>高速光通信（数据中心/相干通信）、可穿戴设备、汽车工业（激光雷达等）</td>
+</tr>
+<tr>
+<td>核心技术</td>
+<td>刻蚀工艺：通过特殊微纳加工工艺使波导侧壁极为光滑，降低传输损耗。媒体报道称该工艺解决了此前工业级量产的痛点</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>注：部分工商平台仍显示注册资本 100 万元，这是早期数据；最新为 534.19 万元。另外，公司部分专利的权利人在 2025 年变更为 <strong>"Nanjing Lycore Technologies"（南京主体）</strong>。苏州主体与南京主体是什么关系、核心知识产权是否留在拟上市主体内，都需要尽调确认（详见第三章问题 9）。</p>
+</blockquote>
+<h3 id="s10-2">2.2 融资历程</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>轮次</th>
+<th>时间</th>
+<th>金额</th>
+<th>投资方</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>天使轮</td>
+<td>2019-07</td>
+<td>未披露</td>
+<td>联想之星等</td>
+<td></td>
+</tr>
+<tr>
+<td>A轮</td>
+<td>2021-02</td>
+<td>未披露</td>
+<td>祥峰投资中国基金、中芯聚源、源码资本、兰璞资本（据36氪）；联想之星连续投资（据媒体报道）</td>
+<td></td>
+</tr>
+<tr>
+<td>A++轮</td>
+<td>2024-06</td>
+<td><strong>超亿元人民币</strong></td>
+<td><strong>蓝驰创投领投</strong>；产业方<strong>中际旭创（禾创）</strong>、<strong>源杰科技（观新光源）</strong>跟投；鼎心资本、云晖资本、熙灏资本；老股东兰璞资本、云通智能加注</td>
+<td>资金用于薄膜铌酸锂标准化器件开发与量产；第三方数据库给出的估值区间为 <strong>6.37–8.28 亿元</strong>（未经官方确认）</td>
+</tr>
+<tr>
+<td>B轮（另有数据库记为 A2 轮）</td>
+<td>2025-06</td>
+<td>未披露</td>
+<td>元航资本、明势创投、好买股权母基金、烟雨天青投资、兰璞资本</td>
+<td>各数据库的轮次命名不一致</td>
+</tr>
+<tr>
+<td>C轮</td>
+<td>2026-04</td>
+<td>未披露</td>
+<td>君澜资本</td>
+<td>仅见于 36氪 创投平台</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>解读</strong>
+1. 融资节奏稳定，老股东持续加注，产业资本进入，说明技术和团队得到一定认可。
+2. 自 2024 年 A++ 轮之后，各轮<strong>金额均未披露</strong>，也没有看到大额领投方的公开新闻稿。与铌奥光电、易缆微（上市公司安孚科技战略入股，数亿元级融资）相比，极刻光核的资本声量偏弱。原因需要在尽调中确认：是公司主动低调，还是融资规模确实有限。
+3. 中际旭创是全球光模块龙头，源杰科技是国内光芯片（激光器）龙头。两者入股既是产业背书，也构成潜在的客户和协同关系（CW 激光器 + TFLN 调制器）。</p>
+<h3 id="s10-3">2.3 信息缺口</h3>
+<p>财务、产品形态、制造与封装、产能良率、客户、股权、研发、最新融资等关键经营问题，在下面第三章逐项分析。</p>
+</section><section class="chapter"><h2 id="s3">三、核心经营问题逐项分析（10 问）</h2>
+<blockquote>
+<p>标注说明：<span class="st st-ok">公开</span> 公开信息可证实；<span class="st st-part">部分公开/推断</span> 部分公开，或为基于行业规律的推断（已注明）；<span class="st st-no">未公开</span> 未公开，必须通过尽调获取。<br />
+极刻光核未上市，也未发布过公开财报。下面对每个问题都给出三部分：①公开信息能回答到什么程度；②基于行业规律的合理推断；③尽调时要向公司索取什么、用什么标准判断。</p>
+</blockquote>
+<h3 id="s10-4">总览</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>问题</th>
+<th>公开信息结论</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>近三年财务数据</td>
+<td>无任何公开财务数据；A++ 轮（2024-06）资金用途为"标准化器件开发与量产"，说明当时仍处于量产导入期</td>
+<td><span class="st st-no">未公开</span></td>
+</tr>
+<tr>
+<td>2</td>
+<td>产品构成与形态（裸芯片/器件/模块）</td>
+<td>公开口径为"高端光通信芯片 + 激光传感芯片 + TFLN 器件加工/微纳加工服务"；专利覆盖调制器结构和模斑转换器；<strong>推断以芯片和器件为主，不做光模块</strong></td>
+<td><span class="st st-part">部分公开/推断</span></td>
+</tr>
+<tr>
+<td>3</td>
+<td>晶圆外采还是自制</td>
+<td>IDM 指的是自己做芯片流片工艺；<strong>LNOI 薄膜晶圆按行业惯例几乎都是外采</strong>（推断），潜在供应商为济南晶正、上海新硅聚合等</td>
+<td><span class="st st-part">部分公开/推断</span></td>
+</tr>
+<tr>
+<td>4</td>
+<td>封装测试自做还是外包</td>
+<td>未公开；有模斑转换器专利，说明在做耦合设计</td>
+<td><span class="st st-no">未公开</span></td>
+</tr>
+<tr>
+<td>5</td>
+<td>产能、良率、出货量</td>
+<td>未公开；只能用行业基准对比</td>
+<td><span class="st st-no">未公开</span></td>
+</tr>
+<tr>
+<td>6</td>
+<td>前五大客户</td>
+<td>未公开；产业股东中际旭创是最可能的验证客户（推断）</td>
+<td><span class="st st-no">未公开</span></td>
+</tr>
+<tr>
+<td>7</td>
+<td>客户光模块速率</td>
+<td>公司层面未公开；按技术规律，TFLN 主要对应 <strong>1.6T（200G/lane）、3.2T（400G/lane）和相干方案</strong>，基本不用于 400G/800G</td>
+<td><span class="st st-part">部分公开/推断</span></td>
+</tr>
+<tr>
+<td>8</td>
+<td>股权结构</td>
+<td>工商数据：注册资本 534.19 万元，26 名股东；<strong>梁寒潇 25.26%，宋一品 10.25%</strong>，其余比例不完整</td>
+<td><span class="st st-part">部分公开/推断</span></td>
+</tr>
+<tr>
+<td>9</td>
+<td>研发费用与方向</td>
+<td>金额未公开；专利显示重点在低驱动电压调制器、电极结构和光纤耦合；<strong>部分专利已转到南京主体名下</strong></td>
+<td><span class="st st-part">部分公开/推断</span></td>
+</tr>
+<tr>
+<td>10</td>
+<td>最新融资</td>
+<td>C 轮，2026 年 4 月，君澜资本，金额和估值未披露；工商变更核准日期 2026-04-15 与之吻合</td>
+<td><span class="st st-ok">公开</span><span class="st st-no">金额未披露</span></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3 id="s10-5">问题 1：近三年（2023–2025）财务数据 <span class="st st-no">未公开</span></h3>
+<p><strong>公开信息</strong>：没有找到任何收入、利润或现金流数据。CB Insights 显示的累计融资额只有 200 万美元，明显过时，不可采信。</p>
+<p><strong>间接线索与推断</strong>
+- 2024 年 6 月 A++ 轮的资金用途是"标准化器件开发与量产"，说明公司在 2024 年中仍处于从研发走向量产的阶段。2023–2024 年的收入大概率以<strong>样品销售、科研院所订单和微纳加工服务</strong>为主，规模有限（推断）。
+- 招聘平台显示团队 1–49 人（可能未更新）。按这个规模和融资节奏，年度经营支出大约在数千万元量级（推断）。
+- 苏州工业园区的硬科技企业通常有较多<strong>政府补助</strong>，分析时要把补助和真实经营收入分开看。
+- 对标参考：光库科技 2025 年光通信器件收入约 7.86 亿元（含体材料铌酸锂及其他光器件，不全是 TFLN）。</p>
+<p><strong>尽调获取与判断标准</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>年份</th>
+<th>营收</th>
+<th>其中：芯片/器件</th>
+<th>其中：加工服务/科研</th>
+<th>毛利率</th>
+<th>研发费用</th>
+<th>净利润</th>
+<th>经营现金流</th>
+<th>期末现金</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2023</td>
+<td>待填</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2024</td>
+<td>待填</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2025</td>
+<td>待填</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2026 前三季度</td>
+<td>待填</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>索取 2023–2025 年<strong>审计报告</strong>和 2026 年管理报表；收入按产品、客户、地区拆分；政府补助明细；在手订单。</li>
+<li>判断标准：<strong>2026 年产品收入（不含服务和补助）是否已达到亿元级的年化水平</strong>；产品收入占比是否在上升；资金能撑多少个月（现金余额 ÷ 月均消耗），要求 ≥ 24 个月。</li>
+</ul>
+<hr />
+<h3 id="s10-6">问题 2：产品构成与产品形态 <span class="st st-part">部分公开/推断</span></h3>
+<p><strong>（1）产品构成（公开口径）</strong>
+- 高端光通信芯片：薄膜铌酸锂高速电光调制器，用于数据中心高速光模块和相干通信；
+- 激光传感芯片：面向激光雷达（汽车工业）、可穿戴设备；
+- 服务：TFLN 器件加工、精密微纳加工、设计与制造一体化流程（据 PitchBook 介绍）；
+- 专利佐证（据 Justia、Patsnap）：分布式光强调制器（2020 年申请）、电光调制器结构（2021 年申请，美国专利 2025 年 5 月授权）、模斑转换器（spot-size converter，2023 年申请，用于芯片与光纤之间的低损耗耦合）、分段驱动电极（降低驱动电压）等。Patsnap 统计其在 TFLN 调制器领域约有 13 项专利记录。</p>
+<p><strong>（2）产品形态：裸芯片、器件还是模块？（推断）</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>形态</th>
+<th>可能性</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>裸芯片 / 载体芯片（CoC）</strong></td>
+<td><strong>高</strong>：数通方向的主力形态</td>
+<td>中际旭创等模块厂具备 COB/硅光封装能力，通常采购调制器芯片后自己集成；IDM 公司的核心价值在芯片</td>
+</tr>
+<tr>
+<td><strong>封装好的调制器器件</strong>（带尾纤的金属管壳）</td>
+<td><strong>中高</strong>：科研、微波光子、传感、相干方向</td>
+<td>融资用途提到"标准化器件"；模斑转换器专利说明在解决光纤耦合，具备做成器件的技术基础</td>
+</tr>
+<tr>
+<td>加工/代工服务</td>
+<td>中：存在，但应是辅助业务</td>
+<td>PitchBook 列明提供 TFLN 器件加工和微纳加工服务</td>
+</tr>
+<tr>
+<td><strong>光模块</strong></td>
+<td><strong>低</strong></td>
+<td>没有任何公开证据；做模块会和股东中际旭创形成竞争，也不符合 IDM 芯片公司的定位</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>为什么重要</strong>：裸芯片毛利高，但依赖客户的封装能力，验证周期长；器件单价高，但需要自建封装和可靠性能力；服务收入稳定，但估值倍数低。<strong>尽调时要索取 SKU 清单，以及按"芯片/器件/服务"拆分的收入和毛利率。</strong></p>
+<hr />
+<h3 id="s10-7">问题 3：晶圆外采还是自制？上游供应商是谁？ <span class="st st-part">部分公开/推断</span></h3>
+<p><strong>先区分两个概念</strong>
+- <strong>LNOI 薄膜晶圆（衬底）</strong>：先把铌酸锂晶体切片，再通过离子注入、键合、剥离（Smart-cut）做成"绝缘体上铌酸锂"晶圆，这是材料厂的工作；
+- <strong>芯片流片</strong>：在 LNOI 晶圆上做光刻、刻蚀（极刻光核的核心能力）、电极、钝化、切割等，这是 IDM 芯片厂的工作。</p>
+<p><strong>推断</strong>：极刻光核的"IDM"是指自己做芯片流片工艺。<strong>LNOI 晶圆本身大概率外采</strong>，因为 HyperLight 等全球 TFLN 芯片公司普遍外购 LNOI，薄膜制备需要专门的离子注入和键合产线，初创公司很少自建。公开信息中没有看到极刻光核自制 LNOI。</p>
+<p><strong>潜在供应商（行业主要来源，与极刻光核的合作关系未经证实）</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>环节</th>
+<th>企业</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LNOI 薄膜晶圆</td>
+<td><strong>济南晶正电子</strong>（NanoLN）</td>
+<td>全球主要 LNOI 供应商，4 英寸出货居全球前列，已研发 8 英寸；华为哈勃入股；厂区产能已饱和，正在筹建新基地</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>上海新硅聚合</strong></td>
+<td>中科院上海微系统所孵化，已实现 6 英寸光学级 LNOI 工程化</td>
+</tr>
+<tr>
+<td></td>
+<td>上海奥麦达等</td>
+<td>提供最大 8 英寸 LNOI 晶圆（自述）</td>
+</tr>
+<tr>
+<td></td>
+<td>日本等海外供应商</td>
+<td>供应链备选（需尽调确认）</td>
+</tr>
+<tr>
+<td>铌酸锂晶体/晶圆</td>
+<td>天通股份、南智芯材、山东恒元（12 英寸晶体）</td>
+<td>LNOI 的上游</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>风险提示</strong>：LNOI 晶圆供需缺口据称约 40%，晶正产能已满，<strong>是否签了长协、有没有第二供应商，直接决定扩产能否落地</strong>。另外，工商注册地址（扬富路 11 号南岸新地）和部分资料中的地址（纳米城）不一致，需要核实：<strong>洁净室是自有，还是租用园区或科研院所的公共微纳加工平台；流片是否有部分环节外包</strong>。如果核心流片也外包，IDM 定位就要打折扣。</p>
+<p><strong>尽调获取</strong>：LNOI 采购合同和供应商名单、采购单价、长协条款；洁净室面积和等级、设备清单（光刻、刻蚀、镀膜）及其产权、设备国产化率；晶圆尺寸路线图（4→6→8 英寸）。</p>
+<hr />
+<h3 id="s10-8">问题 4：封装、测试自做还是外包？ <span class="st st-no">未公开</span></h3>
+<p><strong>公开信息</strong>：未披露。</p>
+<p><strong>推断</strong>
+- <strong>测试</strong>：TFLN 调制器需要 110GHz 以上的光矢量网络分析、高频探针台等设备。IDM 公司通常至少自建<strong>晶圆级和芯片级测试</strong>，否则无法闭环控制工艺。这一项自做的概率高。
+- <strong>封装</strong>：
+  - 数通裸芯片的封装由模块客户完成；
+  - 器件类产品（带尾纤器件）在小批量阶段通常自己封装，或外包给苏州本地的光器件封装厂；
+  - 模斑转换器专利说明公司在设计端解决了耦合问题，但不代表有规模化的封装产线。
+- <strong>可靠性测试</strong>（Telcordia GR-468 老化、高温高湿、直流漂移）是进入数通客户的门槛，可能部分外包给第三方实验室。</p>
+<p><strong>尽调获取与判断</strong>：封装测试产线清单（耦合、贴片、金丝键合、气密封装）、测试设备清单（带宽上限）、外协厂名单和外协比例、可靠性认证报告。<strong>判断标准：关键测试能力是否在内部；封装外包是否有备份供应商。</strong></p>
+<hr />
+<h3 id="s10-9">问题 5：产能、良率、出货量 <span class="st st-no">未公开</span></h3>
+<p><strong>公开信息</strong>：极刻光核没有披露任何相关数字。</p>
+<p><strong>行业基准（用于尽调对比）</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>行业参考</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>晶圆级调制器良率</td>
+<td>4 英寸石英衬底 TFLN 平台：带宽 &gt; 110GHz，Vπ &lt; 3V，<strong>良率约 50%</strong>，波导损耗 &lt; 0.4dB/cm</td>
+<td>学术量产研究（Light: Advanced Manufacturing，2025）</td>
+</tr>
+<tr>
+<td>晶圆尺寸趋势</td>
+<td>HyperLight 与联电合作 6/8 英寸代工；易缆微已有 8 英寸中试线；OFC 2026 业内共识认为 8 英寸会成为 3.2T/CPO 的标配</td>
+<td>公司公告、媒体</td>
+</tr>
+<tr>
+<td>产能规模（对标）</td>
+<td>光库科技规划年产 100 万只级（第三方转述）；铌奥光电据称年产能 3–5 万片（第三方转述，口径不明）</td>
+<td>均未经证实</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>尽调获取与判断</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>要拿到的数据</th>
+<th>判断标准（建议）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>产能</td>
+<td>晶圆尺寸、月投片量、单片可切出的芯片数、扩产计划和 Capex</td>
+<td>2027 年有效产能能否支撑亿元级收入</td>
+</tr>
+<tr>
+<td>良率</td>
+<td>晶圆级（工艺）、芯片级（带宽/Vπ/插损达标）、封装级三层良率，近 6 个月趋势</td>
+<td>芯片级综合良率应不低于行业基准（约 50%），且呈上升趋势</td>
+</tr>
+<tr>
+<td>出货量</td>
+<td>2024、2025、2026 年按产品和客户的出货量（只/片），以及样品和批量的区分</td>
+<td>是否已有单一客户连续 2 个季度以上的批量出货</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3 id="s10-10">问题 6：下游前五大客户 <span class="st st-no">未公开</span></h3>
+<p><strong>公开信息</strong>：未披露客户名单。</p>
+<p><strong>推断</strong>
+- <strong>中际旭创</strong>通过禾创参与 A++ 轮，是最可能的数通验证客户。但它自己大力发展硅光（1.6T 硅光份额很高），TFLN 在其体系中的定位需要确认。
+- <strong>源杰科技</strong>是激光器芯片厂商，更可能是<strong>合作方</strong>（CW 激光器 + TFLN 调制器的联合方案），而不是采购方。
+- 根据公司对外宣传的应用领域，其他客户可能包括：其他光模块厂、相干通信设备商、科研院所和高校（TFLN 芯片的常见早期客户）、激光雷达和汽车相关企业。</p>
+<p><strong>尽调获取与判断</strong>：前五大客户名单、收入占比、合同和订单、各客户所处阶段（送样、验证、小批量、批量）；<strong>要求访谈至少 2–3 家客户</strong>；核查中际旭创相关采购是否构成关联交易、定价是否公允。<strong>判断标准：前五大客户中是否有非股东的头部模块厂或设备商；第一大客户占比是否超过 50%（集中度风险）。</strong></p>
+<hr />
+<h3 id="s10-11">问题 7：客户光模块的主要传输速率（400G/800G？） <span class="st st-part">部分公开/推断</span></h3>
+<p><strong>公司层面</strong>：未公开。</p>
+<p><strong>按技术规律推断</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>光模块速率</th>
+<th>单通道速率</th>
+<th>主流调制器方案</th>
+<th>TFLN 适用性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>400G</td>
+<td>4×100G</td>
+<td>EML、硅光、DML</td>
+<td><strong>低</strong>：成本不划算，基本不用 TFLN</td>
+</tr>
+<tr>
+<td>800G</td>
+<td>8×100G / 4×200G</td>
+<td>EML、硅光为主</td>
+<td><strong>低到中</strong>：少量 200G/lane 方案可能采用</td>
+</tr>
+<tr>
+<td><strong>1.6T</strong></td>
+<td>8×200G</td>
+<td>硅光占 70–80%，EML，TFLN 为补充</td>
+<td><strong>中</strong>：主要在低功耗、长距离或高性能场景小批量导入</td>
+</tr>
+<tr>
+<td><strong>3.2T</strong></td>
+<td>8×400G / 4×800G</td>
+<td>硅光+III-V、EML、<strong>TFLN</strong> 竞争</td>
+<td><strong>高</strong>：TFLN 的核心窗口期</td>
+</tr>
+<tr>
+<td>相干（400ZR/800ZR/1.6T ZR）</td>
+<td>130GBaud 以上</td>
+<td><strong>TFLN 相干调制器</strong>（光库已量产）、InP、硅光</td>
+<td><strong>高</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>结论（推断）</strong>：如果极刻光核已有数通收入，对应的应主要是 <strong>1.6T 送样或小批量，以及 3.2T 研发送样</strong>，不太可能在 400G/800G 上有规模出货。如果公司宣称主力产品用于 400G/800G，需要特别核实其性价比逻辑。</p>
+<p><strong>尽调获取</strong>：每个客户项目对应的模块速率、单通道速率（112/224/448Gbps）、形态（DR4/DR8/FR4、LPO/LRO、CPO）、所处阶段，以及预计量产时间。</p>
+<hr />
+<h3 id="s10-12">问题 8：股权构成与主要股东 <span class="st st-part">部分公开/推断</span></h3>
+<p><strong>工商数据（来自第三方平台，以国家企业信用信息公示系统为准）</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>股东</th>
+<th>早期快照（36氪）</th>
+<th>最新快照（水滴信用，核准日 2026-04-15）</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>梁寒潇</strong>（创始人、法定代表人、总经理）</td>
+<td>33.50%（认缴 140 万元）</td>
+<td><strong>25.2554%</strong>（认缴 134.9108 万元）</td>
+<td>第一大自然人股东</td>
+</tr>
+<tr>
+<td><strong>宋一品</strong></td>
+<td>14.36%</td>
+<td><strong>10.2504%</strong></td>
+<td>专利发明人之一（Yipin Song），推断为联合创始人或技术核心</td>
+</tr>
+<tr>
+<td>诸暨极刻光电科技合伙企业（有限合伙）</td>
+<td>11.96%</td>
+<td>未取得</td>
+<td>推断为员工持股平台或创始人持股平台</td>
+</tr>
+<tr>
+<td>深圳祥峰天使投资合伙企业、霍尔果斯联磐前沿创业投资有限公司等机构</td>
+<td>—</td>
+<td>未取得</td>
+<td>工商股东列表中可见，比例缺失</td>
+</tr>
+<tr>
+<td>历史上出现过的股东</td>
+<td>诸暨静德企业管理合伙企业、聚源信诚（推断与中芯聚源有关）等</td>
+<td>—</td>
+<td>说明股东结构有过变动</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>各轮机构投资方（按融资记录汇总）</strong>：联想之星（天使）；祥峰投资中国基金、中芯聚源、源码资本、兰璞资本（A）；蓝驰创投、禾创（中际旭创）、观新光源（源杰科技）、鼎心资本、云晖资本、熙灏资本、云通智能（A++）；元航资本、明势创投、好买股权母基金、烟雨天青投资（B）；君澜资本（C）。产业方可能通过基金或合伙企业间接持股，所以不一定以上市公司名义出现在工商股东里。</p>
+<p><strong>由工商数据推算（推断）</strong>
+- 早期注册资本约 418 万元（140 万 ÷ 33.5%），最新为 534.19 万元，增加约 28%。也就是说，从早期快照到现在，老股东整体被稀释约 22%，这和 B、C 两轮的增资大致吻合。
+- 梁寒潇的认缴额从 140 万元降到 134.91 万元，宋一品从约 60.0 万元降到约 54.8 万元，<strong>两位创始人各转让了约 5 万元注册资本</strong>。可能是老股转让套现，也可能是转给持股平台，需要核实转让价格和受让方。
+- 两位创始人合计直接持股约 35.5%。如果加上持股平台（由创始人担任 GP 时），控制权大概率仍在 40% 以上；但已低于 1/3 的单人否决线。<strong>科创板要求实际控制人最近 2 年内没有变更</strong>，需要核查一致行动协议和持股平台的 GP 安排。</p>
+<p><strong>尽调获取</strong>：完整的股东名册和出资明细（全面稀释口径）、各轮投资协议中的特殊权利（回购、优先清算、反稀释、一票否决）、ESOP 池规模、创始人老股转让的记录和价格。</p>
+<hr />
+<h3 id="s10-13">问题 9：研发费用与研发重点方向 <span class="st st-part">部分公开/推断</span></h3>
+<p><strong>研发费用</strong>：未公开。按团队规模和融资节奏推断，年研发投入大概率在数千万元量级（推断，需核实）。参考：光库科技 2025 年全公司研发费用约 1.63 亿元。</p>
+<p><strong>研发方向（专利和公开资料可证实的部分）</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>方向</th>
+<th>依据</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>低损耗刻蚀工艺（波导侧壁光滑化）</td>
+<td>媒体报道</td>
+<td>核心工艺壁垒，决定损耗和良率</td>
+</tr>
+<tr>
+<td>分布式/分段电极调制器（降低每段的驱动电压）</td>
+<td>专利（2020 年申请）</td>
+<td>降低驱动功耗，契合 LPO/低功耗模块趋势</td>
+</tr>
+<tr>
+<td>电光调制器结构（隔离层 + 薄膜层双波导）</td>
+<td>美国专利 2025-05 授权</td>
+<td>基础器件专利</td>
+</tr>
+<tr>
+<td>模斑转换器（芯片与光纤的低损耗耦合）</td>
+<td>专利（2023 年申请）</td>
+<td>量产封装的关键，降低耦合损耗</td>
+</tr>
+<tr>
+<td>激光传感（激光雷达）</td>
+<td>公司介绍</td>
+<td>非数通的第二增长曲线</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>推断的下一阶段重点</strong>：400G/lane 调制器（面向 3.2T）、6/8 英寸工艺迁移、相干调制器、与激光器的混合集成（可与源杰协同）、面向 CPO 的小型化。</p>
+<p><strong><span class="st st-part">部分公开/推断</span> 重要风险点：知识产权归属</strong>
+部分专利（如上述 2025-05 授权的美国专利）的权利人登记为 <strong>Nanjing Lycore Technologies（南京主体）</strong>，另有专利的权利人在 2025 年由苏州主体变更为南京主体。<strong>必须核实</strong>：
+- 南京主体是苏州主体的全资子公司，还是另一家关联公司？
+- 核心专利是否都在拟投资或拟上市主体内？
+- 专利转让有没有对价、有没有许可协议？是否存在业务或资产向其他主体转移的情况？</p>
+<p><strong>尽调获取</strong>：2023–2025 年研发费用明细和资本化比例、研发人员数量和背景、在研项目清单和里程碑、完整专利清单（含权利人、法律状态、同族专利）、核心技术人员的竞业和保密协议。</p>
+<hr />
+<h3 id="s10-14">问题 10：最新融资情况 <span class="st st-ok">公开</span><span class="st st-no">金额未披露</span></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>最新轮次</td>
+<td><strong>C 轮，2026 年 4 月</strong></td>
+<td><span class="st st-ok">公开</span>（36氪 创投平台）</td>
+</tr>
+<tr>
+<td>投资方</td>
+<td>君澜资本</td>
+<td><span class="st st-ok">公开</span>（单一来源）</td>
+</tr>
+<tr>
+<td>金额</td>
+<td>未披露</td>
+<td><span class="st st-no">未公开</span></td>
+</tr>
+<tr>
+<td>估值</td>
+<td>未披露</td>
+<td><span class="st st-no">未公开</span></td>
+</tr>
+<tr>
+<td>旁证</td>
+<td>工商变更核准日期为 2026-04-15，与 C 轮时间吻合；注册资本已增至 534.19 万元</td>
+<td><span class="st st-part">部分公开/推断</span></td>
+</tr>
+<tr>
+<td>历史估值参考</td>
+<td>2024-06 A++ 轮，第三方数据库给出估值 6.37–8.28 亿元（未经确认）</td>
+<td><span class="st st-part">部分公开/推断</span></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>推断</strong>：以 A++ 轮约 7 亿元估值为基数，经过 B、C 两轮，又赶上 2026 年 TFLN 题材的热度，C 轮投后估值可能显著高于 A++ 轮。但<strong>目前没有任何可靠数据</strong>，不应作为定价依据。</p>
+<p><strong>尽调获取</strong>：C 轮投资协议和条款清单（投后估值、每元注册资本价格、增资和老股比例、特殊权利）；各轮每元注册资本价格的变化序列，看估值增速是否和业务进展匹配；本轮融资后的现金余额和资金使用计划。</p>
+<hr />
+<h3 id="s10-15">小结：这 10 个问题对投资决策的影响</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>关键问题</th>
+<th>对决策的影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1（财务）、5（产能良率出货）、6（客户）</td>
+<td><strong>一票否决项</strong>：如果没有可验证的批量收入和头部客户，就不按"量产企业"定价</td>
+</tr>
+<tr>
+<td>3（晶圆）、4（封测）</td>
+<td>决定 IDM 模式的含金量和供应链安全性</td>
+</tr>
+<tr>
+<td>2（产品形态）、7（模块速率）</td>
+<td>决定市场空间和毛利结构，影响估值倍数</td>
+</tr>
+<tr>
+<td>8（股权）、9（研发与知识产权归属）</td>
+<td><strong>合规和上市可行性</strong>：控制权稳定、知识产权完整是科创板上市的前提</td>
+</tr>
+<tr>
+<td>10（最新融资）</td>
+<td>决定入场价格是否满足第六章的估值纪律</td>
+</tr>
+</tbody>
+</table></div>
+</section><section class="chapter"><h2 id="s4">四、投资逻辑</h2>
+<h3 id="s10-16">4.1 需求端：AI 光互连速率升级带来"调制器带宽"瓶颈</h3>
+<ul>
+<li>AI 数据中心光模块正从 800G 快速走向 1.6T，并在规划 3.2T。单通道速率从 100G/200G 走向 <strong>400G/lane</strong>，要求调制器电光带宽 <strong>&gt;100GHz</strong>，同时驱动功耗要更低。</li>
+<li>TFLN 的物理优势：电光带宽可超过 100GHz，半波电压低（Vπ ≤ 1V），光损耗低，线性度好。在单通道 200G 以上的场景，磷化铟和硅光逐渐吃力，TFLN 正从方案验证走向小批量导入。</li>
+<li>OFC/ECOC 2026 期间，博通已用包括 TFLN 在内的方案打通了 425G 链路，HyperLight 宣称平台支持 448Gb/s/lane。<strong>400G/lane 是 TFLN 最重要的窗口期</strong>。</li>
+<li>除数通外，TFLN 还可用于相干通信（130GBaud+）、FMCW 激光雷达、微波光子、量子和光计算等领域，长期天花板较高。极刻光核布局的"激光传感、汽车工业"方向对应其中的激光雷达。</li>
+</ul>
+<h3 id="s10-17">4.2 供给端：产业化拐点已出现，资本与产业同步加码</h3>
+<ul>
+<li><strong>海外</strong>：HyperLight 于 2026 年 6 月完成 8000 万美元 C 轮融资，由联发科领投，联电、捷普、富士康等跟投，并与联电合作在 6/8 英寸晶圆上量产 TFLN Chiplet 平台。这说明 TFLN 已进入代工规模化阶段。</li>
+<li><strong>国内上市公司</strong>：光库科技 2025 年营收约 14.7 亿元（+47.6%），光通信器件收入约 7.86 亿元并实现翻倍；已量产 96/130GBaud 薄膜铌酸锂相干调制器、70GHz 模拟调制器，并持续扩产。这验证了 TFLN 的商业可行性。</li>
+<li><strong>一级市场</strong>：2026 年以来，券商和投资人密集调研长三角（南京、苏州、杭州）的 TFLN 企业，多家初创公司进入新一轮融资。</li>
+</ul>
+<h3 id="s10-18">4.3 标的层面的逻辑</h3>
+<ol>
+<li><strong>IDM 模式与工艺壁垒</strong>：TFLN 的核心难点在于铌酸锂难刻蚀，波导侧壁粗糙会导致损耗、良率和一致性问题。代工生态（PDK、MPW）在 2026 年才刚起步。在这一阶段，掌握自有工艺的 IDM 更容易快速迭代、控制良率并保护 know-how。极刻光核正是以刻蚀工艺见长。</li>
+<li><strong>先发与团队积累</strong>：公司 2019 年成立，在国内 TFLN 初创中属于最早一批。创始人有该方向的学术背景。</li>
+<li><strong>产业股东协同</strong>：中际旭创和源杰科技入股，为产品导入光模块龙头的验证体系、与激光器协同设计提供了可能。</li>
+<li><strong>国产替代</strong>：高端调制器长期由海外主导（Lumentum、富士通光器件、住友等，以及新兴的 HyperLight）。在国内光模块全球份额领先的背景下，核心光芯片国产化有政策和客户双重驱动。</li>
+</ol>
+<h3 id="s10-19">4.4 市场空间（数据口径差异大，仅作方向参考）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>来源口径</th>
+<th>预测</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>行业研报 A</td>
+<td>TFLN 光调制器市场 2023 年约 4.46 亿美元，2030 年约 12.5 亿美元（CAGR 15.7%）</td>
+</tr>
+<tr>
+<td>行业研报 B</td>
+<td>2025 年 1.76 亿美元，2032 年 20.8 亿美元</td>
+</tr>
+<tr>
+<td>行业研报 C</td>
+<td>2034 年约 25 亿美元（CAGR 48%）</td>
+</tr>
+</tbody>
+</table></div>
+<p>各家机构的基数相差一个数量级，可信度有限。合理的判断是：<strong>到 2030 年，全球 TFLN 调制器市场规模在 10–25 亿美元之间，且高度依赖 400G/lane 和 3.2T 方案中 TFLN 的渗透率</strong>。</p>
+</section><section class="chapter"><h2 id="s5">五、竞争格局</h2>
+<h3 id="s10-20">5.1 技术路线之争（最大的外部变量）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>路线</th>
+<th>现状</th>
+<th>对 TFLN 的影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>硅光（含 III-V 异质集成）</td>
+<td>2026 年 1.6T 模块中硅光占比约 70–80%；中际旭创自研硅光，称良率超过 95%；OpenLight 在 OFC 2026 展示了 400G/lane EA 调制器和 3.2T DR8 原型</td>
+<td><strong>最大威胁</strong>：成本低，CMOS 产线可规模化。有观点称 TFLN 成本约为硅光的 5 倍</td>
+</tr>
+<tr>
+<td>InP EML</td>
+<td>博通已推出 400G EML 和 3nm 400G/lane DSP</td>
+<td>在 400G/lane 上与 TFLN 正面竞争</td>
+</tr>
+<tr>
+<td>薄膜铌酸锂</td>
+<td>带宽和功耗优势明显，处于"验证到小批量"阶段；行业普遍预计真正的大规模放量在 2028 年前后</td>
+<td>窗口期在 400G/lane、3.2T、相干和部分 CPO 场景</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>关键判断：3.2T 究竟采用 8×400G 还是 4×800G，业内仍有争议；<strong>未来 18 个月 400G/lane 的良率表现</strong>，将决定各技术路线的份额。TFLN 不会"通吃"，更可能在高端细分场景中占据一席之地。</p>
+</blockquote>
+<h3 id="s10-21">5.2 主要竞争者</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>企业</th>
+<th>要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>海外龙头</td>
+<td><strong>HyperLight</strong>（美）</td>
+<td>哈佛系，技术标杆；2026-06 完成 8000 万美元 C 轮（联发科领投）；与联电合作 8 英寸代工；400G/lane 正在送样</td>
+</tr>
+<tr>
+<td>海外传统厂商</td>
+<td>Lumentum、富士通光器件、住友大阪水泥等</td>
+<td>体材料铌酸锂调制器的传统厂商，正在推进薄膜化，客户基础深厚</td>
+</tr>
+<tr>
+<td>国内上市公司</td>
+<td><strong>光库科技</strong></td>
+<td>国内 TFLN 调制器量产领先者（2019 年收购 Lumentum 铌酸锂调制器业务）；相干 TFLN 调制器已量产，正在扩产；<strong>这是极刻光核最直接的标杆和竞争者</strong></td>
+</tr>
+<tr>
+<td></td>
+<td>光迅科技、华工科技等</td>
+<td>光器件/模块厂商布局 TFLN 调制器，可能自研或外采</td>
+</tr>
+<tr>
+<td>国内初创</td>
+<td><strong>铌奥光电</strong>（南京，2020 年成立）</td>
+<td>自称团队最完整、融资规模最大；2025-02 A+ 轮近亿元，2025-11 B 轮，据报道正在推进 C 轮扩产；800G/1.6T/3.2T IMDD 芯片已商业化，带宽 &gt;110GHz（公司口径）</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>易缆微</strong>（苏州，同城）</td>
+<td>硅光异质集成 TFLN 路线；2025-08 8 英寸中试线通线；与索尔思在 OFC 2026 联合首发 3.2T（单波 400G）DEMO；安孚科技战略入股，已向多家主流模块厂送样</td>
+</tr>
+<tr>
+<td></td>
+<td>犀里光电（2025 年成立）</td>
+<td>王骋教授领衔，联想创投、元禾原点参与；2026-09 完成 Pre-A 轮（孚腾资本领投）</td>
+</tr>
+<tr>
+<td></td>
+<td>元芯光电等</td>
+<td>同赛道布局</td>
+</tr>
+<tr>
+<td>上游材料</td>
+<td>济南晶正（LNOI 薄膜晶圆，华为哈勃入股）、天通股份（8 英寸铌酸锂晶圆）、南智芯材、恒元光电（12 英寸晶体）等</td>
+<td>上游晶圆供需缺口据称约 40%；晶正厂区产能已饱和，正在筹建新基地</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="s10-22">5.3 极刻光核的相对位置</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>极刻光核</th>
+<th>铌奥光电</th>
+<th>易缆微</th>
+<th>光库科技</th>
+<th>HyperLight</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>成立时间</td>
+<td>2019</td>
+<td>2020</td>
+<td>—</td>
+<td>上市公司</td>
+<td>2018 前后</td>
+</tr>
+<tr>
+<td>模式</td>
+<td>TFLN IDM</td>
+<td>近 IDM，全流程工艺</td>
+<td>硅光异质集成 TFLN，自建中试线</td>
+<td>IDM + 体材料</td>
+<td>平台 + 代工（联电）</td>
+</tr>
+<tr>
+<td>产业背书</td>
+<td>中际旭创、源杰科技</td>
+<td>金浦投资、广州产投</td>
+<td>安孚科技、索尔思合作</td>
+<td>自身即为产业方</td>
+<td>联发科、联电、捷普、富士康</td>
+</tr>
+<tr>
+<td>公开的产品进展</td>
+<td><strong>少</strong>（主要披露工艺能力）</td>
+<td>800G/1.6T/3.2T 芯片商业化（公司口径）</td>
+<td>400G/lane 芯片、3.2T DEMO</td>
+<td>相干 TFLN 已量产</td>
+<td>400G/lane 送样，145GHz 调制器</td>
+</tr>
+<tr>
+<td>公开融资规模</td>
+<td>A++ 超亿元，之后未披露</td>
+<td>数亿元级（多轮）</td>
+<td>数亿元级</td>
+<td>上市融资</td>
+<td>合计超 1 亿美元</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>小结</strong>：极刻光核在"工艺起步早、产业股东质量高"上有优势，但在"公开可验证的产品与客户进展""资本规模"两方面并不领先。若尽调能证实它已在头部模块厂完成验证并开始批量出货，它就是被低估的潜在机会；若仍以工艺服务和样品为主，则在国内 TFLN 第一梯队的竞争中存在掉队风险。</p>
+</section><section class="chapter"><h2 id="s6">六、投资预期与估值框架</h2>
+<blockquote>
+<p>以下为<strong>示意性情景分析</strong>。由于公司未披露财务数据，表中收入均为假设，用来说明"在什么入场估值下值得投"，而不是预测结果。</p>
+</blockquote>
+<h3 id="s10-23">6.1 2030 年情景假设</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>情景</th>
+<th>概率</th>
+<th>全球 TFLN 调制器市场（2030）</th>
+<th>极刻光核份额</th>
+<th>2030 收入</th>
+<th>退出 PS</th>
+<th>2030 估值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>乐观：TFLN 在 400G/lane 和 3.2T 成为主流之一，公司进入头部客户主供</td>
+<td>20%</td>
+<td>20 亿美元</td>
+<td>8%</td>
+<td>约 11.5 亿元</td>
+<td>15x</td>
+<td>约 170 亿元</td>
+</tr>
+<tr>
+<td>中性：TFLN 占据高端细分，公司为国内第二梯队供应商之一</td>
+<td>45%</td>
+<td>12 亿美元</td>
+<td>4%</td>
+<td>约 3.5 亿元</td>
+<td>12x</td>
+<td>约 42 亿元</td>
+</tr>
+<tr>
+<td>悲观：硅光/InP 主导，或公司掉队</td>
+<td>35%</td>
+<td>8 亿美元</td>
+<td>≤1%</td>
+<td>≤0.6 亿元</td>
+<td>8x 或并购退出</td>
+<td>≤5 亿元</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>概率加权后的 2030 年估值约 <strong>55 亿元</strong>。考虑 IPO 前后约 25% 的稀释，当前股东可获得的对应价值约 <strong>41 亿元</strong>（以当前入场估值为基准折算）。</li>
+<li>汇率按 1 美元约等于 7.2 元人民币；退出倍数参考科创板高成长光芯片公司，<strong>这些参数需在尽调和估值委员会中校准</strong>。</li>
+</ul>
+<h3 id="s10-24">6.2 入场估值敏感性（持有约 4–5 年）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>当前投后估值</th>
+<th>期望回报倍数（概率加权）</th>
+<th>乐观情景倍数</th>
+<th>评价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>15 亿元</td>
+<td>约 2.7x</td>
+<td>约 8.5x</td>
+<td>有吸引力</td>
+</tr>
+<tr>
+<td>20 亿元</td>
+<td>约 2.0x</td>
+<td>约 6.4x</td>
+<td>可接受（硬科技 VC 的最低要求区间）</td>
+</tr>
+<tr>
+<td>30 亿元</td>
+<td>约 1.4x</td>
+<td>约 4.3x</td>
+<td>风险收益比偏弱</td>
+</tr>
+<tr>
+<td>50 亿元</td>
+<td>约 0.8x</td>
+<td>约 2.6x</td>
+<td>不建议</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>结论</strong>：在当前公开信息下，<strong>投后估值约 20 亿元以内</strong>风险收益比较合理。若 C 轮或本轮估值明显高于这一水平，就需要尽调证明公司已有可见的批量收入（例如 2027 年预期收入超过 1.5–2 亿元，且有头部客户订单支撑）。否则应压价、改用老股折价受让，或者放弃。</p>
+<h3 id="s10-25">6.3 退出路径</h3>
+<ul>
+<li><strong>科创板 IPO</strong>（主路径）：硬科技属性契合，适合未盈利企业的上市标准；乐观时间窗口为 2028–2030 年。</li>
+<li><strong>产业并购</strong>：光模块龙头（如股东中际旭创）或光器件上市公司（光库、光迅等）整合上游芯片能力，是现实的备选路径。</li>
+<li><strong>老股转让</strong>：TFLN 赛道热度高，后续轮次中存在部分退出机会。</li>
+</ul>
+</section><section class="chapter"><h2 id="s7">七、投资风险</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>风险类别</th>
+<th>具体内容</th>
+<th>严重度</th>
+<th>缓释手段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>技术路线风险</strong></td>
+<td>1.6T 时代硅光占比 70–80%，硅光和 InP EML 均已展示 400G/lane；如果 3.2T/CPO 主流方案选择硅光，TFLN 的市场空间将显著收窄</td>
+<td>高</td>
+<td>关注公司在相干、激光雷达、微波光子等非数通场景的多元化布局；把投资里程碑与 400G/lane 验证结果挂钩</td>
+</tr>
+<tr>
+<td><strong>量产与可靠性风险</strong></td>
+<td>TFLN 存在直流漂移、光折变、封装可靠性等问题，需通过 Telcordia 等可靠性认证；客户验证周期通常为 12–24 个月；良率不足会直接拖累毛利</td>
+<td>高</td>
+<td>尽调核查良率数据、可靠性报告和客户验证节点</td>
+</tr>
+<tr>
+<td><strong>竞争与价格战</strong></td>
+<td>光库在扩产，HyperLight 借助联电实现规模化，国内铌奥、易缆微、犀里等资金充裕，苏州/南京同质化企业较多，可能提前进入价格战</td>
+<td>高</td>
+<td>评估成本曲线（晶圆尺寸、良率）是否具备竞争力</td>
+</tr>
+<tr>
+<td><strong>成本竞争力</strong></td>
+<td>有观点称 TFLN 成本约为硅光的 5 倍；如果降本速度不及预期，TFLN 只能停留在高端小众市场</td>
+<td>中高</td>
+<td>核查 6→8 英寸升级路径和单片芯片产出</td>
+</tr>
+<tr>
+<td><strong>客户集中与股东依赖</strong></td>
+<td>产业股东中际旭创本身大力发展硅光，未必会把 TFLN 作为主力方案；客户可能高度集中</td>
+<td>中</td>
+<td>核实非股东客户的数量和占比</td>
+</tr>
+<tr>
+<td><strong>资本开支与融资风险</strong></td>
+<td>IDM 重资产，产线扩建和制程升级需要持续融资，后续轮次稀释大；若资本市场转冷，可能出现资金链压力</td>
+<td>中高</td>
+<td>测算资金跑道（runway），设置防稀释条款，预留追加投资额度</td>
+</tr>
+<tr>
+<td><strong>上游材料风险</strong></td>
+<td>LNOI 薄膜晶圆供需缺口据称约 40%，晶正等供应商产能已满；可能出现材料短缺或涨价</td>
+<td>中</td>
+<td>核查长协、备选供应商（晶正、新硅聚合、海外供应商等）</td>
+</tr>
+<tr>
+<td><strong>地缘政治风险</strong></td>
+<td>国内光模块大量出口北美云厂商，面临关税和供应链审查；半导体设备出口管制可能影响产线扩建</td>
+<td>中</td>
+<td>关注客户的海外产能（如泰国工厂）和设备国产化程度</td>
+</tr>
+<tr>
+<td><strong>周期风险</strong></td>
+<td>AI 资本开支若放缓，光模块升级节奏将推迟，TFLN 放量时间点后移</td>
+<td>中</td>
+<td>情景分析中纳入放量推迟 1–2 年的假设</td>
+</tr>
+<tr>
+<td><strong>信息透明度与估值风险</strong></td>
+<td>公开信息很少，各数据库的轮次命名不一致；2026 年 TFLN 是二级市场热门题材，一级估值可能透支</td>
+<td>中高</td>
+<td>严格尽调，坚守估值纪律，使用对赌和回购条款</td>
+</tr>
+<tr>
+<td><strong>知识产权归属风险</strong></td>
+<td>部分专利的权利人为南京主体（Nanjing Lycore），或在 2025 年由苏州主体转到南京主体；如果核心专利不在投资主体内，将影响资产完整性和上市</td>
+<td>中高</td>
+<td>交割前要求核心知识产权全部归入投资主体（或其全资子公司），并把这一点写入交割先决条件</td>
+</tr>
+<tr>
+<td><strong>控制权稀释风险</strong></td>
+<td>创始人梁寒潇直接持股已降到约 25%，两位创始人合计约 35.5%，后续融资还会继续稀释；两人都有小额老股转让</td>
+<td>中</td>
+<td>核查一致行动协议、持股平台 GP 安排；对创始人后续的老股转让设置限制</td>
+</tr>
+<tr>
+<td><strong>关键人物风险</strong></td>
+<td>技术与公司高度依赖创始人梁寒潇和联合创始人/技术核心宋一品，以及核心工艺团队</td>
+<td>中</td>
+<td>设置核心团队竞业、股权激励和锁定安排</td>
+</tr>
+</tbody>
+</table></div>
+</section><section class="chapter"><h2 id="s8">八、尽职调查资料清单（按第三章 10 问整理）</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>对应问题</th>
+<th>要向公司索取的资料</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P0</td>
+<td>1 财务</td>
+<td>2023–2025 年审计报告；2026 年前三季度管理报表；收入按产品、客户、地区拆分；政府补助明细；在手订单；现金余额和月均消耗</td>
+</tr>
+<tr>
+<td>P0</td>
+<td>5 产能良率出货</td>
+<td>晶圆尺寸、月投片量、三层良率（晶圆/芯片/封装）近 6 个月趋势；2024–2026 年按产品和客户的出货量</td>
+</tr>
+<tr>
+<td>P0</td>
+<td>6 客户</td>
+<td>前五大客户名单、收入占比、合同和订单、验证阶段；安排 2–3 家客户访谈；与中际旭创交易的关联交易核查</td>
+</tr>
+<tr>
+<td>P0</td>
+<td>9 知识产权</td>
+<td>完整专利清单（权利人、法律状态、同族专利）；<strong>南京 Lycore 主体的工商资料、与苏州主体的股权关系、专利转让和许可协议</strong></td>
+</tr>
+<tr>
+<td>P0</td>
+<td>10 融资</td>
+<td>C 轮条款清单和投资协议（投后估值、每元注册资本价格、增资和老股比例、特殊权利）；本轮资金使用计划</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>2 产品 / 7 速率</td>
+<td>SKU 清单和规格书（带宽、Vπ、插损、单通道速率）；按芯片/器件/服务拆分的收入和毛利；每个客户项目对应的模块速率和形态</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>3 晶圆 / 4 封测</td>
+<td>LNOI 供应商名单、采购合同、长协和单价；洁净室产权、面积和等级；设备清单；封测设备和外协厂名单；可靠性认证报告（GR-468）</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>8 股权</td>
+<td>全面稀释口径的股东名册；ESOP 池；创始人老股转让的记录和价格；一致行动协议；持股平台 GP</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>9 研发</td>
+<td>2023–2025 年研发费用明细和资本化比例；研发人员结构；在研项目和里程碑；核心人员竞业和保密协议</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>行业验证</td>
+<td>通过专家网络访谈模块厂采购和研发人员，了解 TFLN 在其 1.6T/3.2T 平台中的定位及供应商排序；与光库、HyperLight、铌奥做实测数据对标</td>
+</tr>
+</tbody>
+</table></div>
+</section><section class="chapter"><h2 id="s9">九、投资决策建议</h2>
+<h3 id="s10-26">9.1 总体建议：<strong>有条件推进（谨慎积极）</strong></h3>
+<p><strong>理由</strong>
+- 赛道（TFLN 高速光芯片）在 AI 光互连升级中具备真实的技术必要性和产业化拐点，国内外资本和产业巨头都在加码，<strong>值得配置</strong>。
+- 极刻光核在工艺积累、成立时间和产业股东质量上具备入围资格。
+- 但公开信息无法证实其已经商业化放量，相对于铌奥光电、易缆微的声量和资本规模不占优，<strong>不宜在缺乏尽调验证的情况下按"赛道龙头"定价</strong>。</p>
+<h3 id="s10-27">9.2 决策门槛（Go / No-Go）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>门槛</th>
+<th>通过标准（建议）</th>
+<th>未通过时的处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>商业化</td>
+<td>已有至少 1 家头部模块厂完成验证并下达批量订单；2026 年收入有实质规模</td>
+<td>降为观察，或只以老股折价参与</td>
+</tr>
+<tr>
+<td>技术</td>
+<td>400G/lane 级产品已送样且实测指标达到同业水平；良率和可靠性数据可信</td>
+<td>放弃</td>
+</tr>
+<tr>
+<td>估值</td>
+<td>投后估值 ≤ 约 20 亿元；或高于此值时，有 2027 年收入预测和订单佐证（PS 合理）</td>
+<td>压价、改用老股，或者放弃</td>
+</tr>
+<tr>
+<td>资金跑道</td>
+<td>本轮融资后资金可支持 ≥ 24 个月，并覆盖下一阶段扩产</td>
+<td>要求追加融资安排或调整投资结构</td>
+</tr>
+<tr>
+<td>知识产权完整性</td>
+<td>核心专利（含南京 Lycore 名下的专利）全部归属投资主体或其全资子公司</td>
+<td>作为交割先决条件；无法解决则放弃</td>
+</tr>
+<tr>
+<td>控制权稳定</td>
+<td>创始团队通过直接持股、持股平台和一致行动协议保持相对控制</td>
+<td>要求补签一致行动协议，限制创始人老股转让</td>
+</tr>
+<tr>
+<td>供应链</td>
+<td>LNOI 晶圆至少有 1 家长协供应商和 1 家备选供应商；核心流片工艺在内部完成</td>
+<td>降低估值，或把扩产资金的拨付与供应链落地挂钩</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="s10-28">9.3 交易结构建议</h3>
+<ul>
+<li><strong>分期投资</strong>：首期 50–60%，剩余部分与"头部客户批量订单"或"400G/lane 产品通过可靠性认证"等里程碑挂钩。</li>
+<li><strong>保护条款</strong>：反稀释（加权平均）、优先清算权、IPO 对赌或回购（例如 2030 年底前未申报 IPO 则触发回购）、信息权和董事会观察员席位。</li>
+<li><strong>仓位控制</strong>：作为光芯片组合中的一个卫星仓位，建议不超过单只基金规模的 3–5%。同时可在组合层面配置硅光或上游材料（如晶圆/晶体）标的，对冲技术路线风险。</li>
+<li><strong>投后协同</strong>：推动公司与产业股东（中际旭创、源杰科技）形成"激光器 + TFLN 调制器"的联合方案，加快进入客户的验证体系。</li>
+</ul>
+<h3 id="s10-29">9.4 一句话结论</h3>
+<blockquote>
+<p><strong>看好赛道，标的待证。</strong> 若尽调证实极刻光核已跨过"送样到批量"的门槛，且估值合理（约 20 亿元以内），建议以分期加对赌的结构参与；否则保持跟踪，等下一个里程碑出现后再决策。</p>
+</blockquote>
+</section><section class="chapter"><h2 id="s10">参考来源</h2>
+<ul>
+<li><a href="https://www.chinaventure.com.cn/news/114-20240626-381710.html" target="_blank" rel="noopener">极刻光核完成超亿元A++轮融资（投中网）</a></li>
+<li><a href="https://www.jiemian.com/article/11334731.html" target="_blank" rel="noopener">薄膜铌酸锂IDM公司极刻光核完成超亿元A++轮融资（界面新闻）</a></li>
+<li><a href="https://www.lanchivc.com/7762/" target="_blank" rel="noopener">蓝驰创投领投，极刻光核完成超亿元A++轮融资（蓝驰创投）</a></li>
+<li><a href="https://www.sohu.com/a/788882274_121478947" target="_blank" rel="noopener">联想之星天使轮项目极刻光核完成超亿元A++轮融资（搜狐）</a></li>
+<li><a href="https://www.sohu.com/a/789093881_121007624" target="_blank" rel="noopener">联想连投2轮，捧出苏州黑马企业（搜狐）</a></li>
+<li><a href="https://news.qq.com/rain/a/20250619A02VBJ00" target="_blank" rel="noopener">极刻光核获得B轮融资（腾讯新闻）</a></li>
+<li><a href="https://pitchhub.36kr.com/project/1678507686999044" target="_blank" rel="noopener">极刻光核 项目信息（36氪创投平台）</a></li>
+<li><a href="https://m.cyzone.cn/company/3209017.html" target="_blank" rel="noopener">极刻光核（创业邦）</a></li>
+<li><a href="https://m.qcc.com/firm/81de503f7e7855b2c478b74e450ff424.html" target="_blank" rel="noopener">苏州极刻光核科技有限公司（企查查）</a></li>
+<li><a href="https://m.shuidi.cn/company-48ab4cbf224be62378b087c5d9d05c01.html" target="_blank" rel="noopener">苏州极刻光核科技有限公司（水滴信用）</a></li>
+<li><a href="https://pitchbook.com/profiles/company/461830-24" target="_blank" rel="noopener">Jike Guanghe Company Profile（PitchBook）</a></li>
+<li><a href="https://paper.cnstock.com/html/2026-06/17/content_2232363.htm" target="_blank" rel="noopener">追逐"未来之光" 薄膜铌酸锂光芯片加速量产（上海证券报）</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/2037827815425435334" target="_blank" rel="noopener">光通信爆火，国产薄膜铌酸锂光芯片加速跑（知乎）</a></li>
+<li><a href="https://www.summitpartners.com/news/hyperlight-announces-80-million-series-c-to-accelerate-tfln-deployment-for-ai-infrastructure" target="_blank" rel="noopener">HyperLight Announces $80 Million Series C（Summit Partners）</a></li>
+<li><a href="https://optics.org/news/hyperlight-to-ramp-thin-film-lithium-niobate-output-with-80m-support" target="_blank" rel="noopener">HyperLight to ramp TFLN output with $80M funding round（optics.org）</a></li>
+<li><a href="https://static.cninfo.com.cn/finalpage/2026-03-24/1225026090.PDF" target="_blank" rel="noopener">光库科技 2025 年年度报告摘要（巨潮资讯）</a></li>
+<li><a href="https://www.c-fol.net/news/6_202502/20250227112438.html" target="_blank" rel="noopener">铌奥光电完成近亿元A+轮融资（光纤在线）</a></li>
+<li><a href="https://pitchhub.36kr.com/project/2232987189135362" target="_blank" rel="noopener">铌奥光电 项目信息（36氪创投平台）</a></li>
+<li><a href="https://m.chinaventure.com.cn/news/113-20260918-393335.html" target="_blank" rel="noopener">犀里光电完成 Pre-A 轮融资（投中网）</a></li>
+<li><a href="https://www.cls.cn/detail/2239250" target="_blank" rel="noopener">易缆微相关报道（财联社）</a></li>
+<li><a href="http://dataclouds.cninfo.com.cn/shgonggao/investor/2025/20251224/b6fc195043194cab975800a77cfb4ff2.PDF" target="_blank" rel="noopener">安孚科技投资者关系活动记录表</a></li>
+<li><a href="https://fundaai.substack.com/p/deepofc-2026-preview-400g-per-lane" target="_blank" rel="noopener">OFC 2026 Preview: 400G per Lane（FundaAI）</a></li>
+<li><a href="https://www.simpletechtrend.com/en/post/ofc2026-1-6t-3-2t-market-status-enabling-tech-en" target="_blank" rel="noopener">OFC 2026 Panel: 1.6T to 3.2T, Pluggables vs. SiPh vs. CPO</a></li>
+<li><a href="https://temple8capital.substack.com/p/ecoc-2026-tfln-cpo-hyperlight-ngk" target="_blank" rel="noopener">ECOC 2026: NGK, HyperLight and the TFLN CPO Roadmap</a></li>
+<li><a href="https://compoundsemiconductor.net/article/123810/OpenLight_shows_III-V_integrated_Si_photonics_at_OFC_2026" target="_blank" rel="noopener">OpenLight shows III-V integrated Si photonics at OFC 2026（Compound Semiconductor）</a></li>
+<li><a href="https://news.10jqka.com.cn/20260923/c680186501.shtml" target="_blank" rel="noopener">产业一线研判 光通信产业新趋势利好（同花顺）</a></li>
+<li><a href="https://www.chyxx.com/industry/1257682.html" target="_blank" rel="noopener">2026年中国铌酸锂光调制器行业产业链、竞争格局（智研咨询）</a></li>
+<li><a href="https://www.intelmarketresearch.com/thin-film-lithium-niobate-optical-modulator-market-21231" target="_blank" rel="noopener">Thin Film Lithium Niobate Optical Modulator Market Outlook（Intel Market Research）</a></li>
+<li><a href="https://www.prnewswire.com/news-releases/thin-film-lithium-niobate-tfln-modulator-market-to-hit-usd-3-8-billion-by-2031--driven-by-optical-communication-data-centers-and-5g--valuates-reports-302421134.html" target="_blank" rel="noopener">TFLN Modulator Market to Hit USD 3.8 Billion by 2031（PR Newswire）</a></li>
+<li><a href="http://www.iccsz.com/4g/news.Asp?ID=a76f148520ac4d3ba109386c7225e9cc" target="_blank" rel="noopener">恒元光电成功研制12英寸光学级铌酸锂晶体（讯石光通讯网）</a></li>
+<li><a href="https://www.qichamao.com/orgcompany/searchitemdtl/190173bd04af7601cb4afb6a9f7fa92b.html" target="_blank" rel="noopener">苏州极刻光核科技有限公司 工商信息（企查猫）</a></li>
+<li><a href="https://www.liepin.com/company-jobs/13834035/" target="_blank" rel="noopener">苏州极刻光核科技有限公司 招聘信息（猎聘）</a></li>
+<li><a href="https://patents.justia.com/assignee/suzhou-lycore-technologies-co-ltd" target="_blank" rel="noopener">Patents Assigned to Suzhou Lycore Technologies（Justia）</a></li>
+<li><a href="https://patents.justia.com/inventor/yipin-song?page=2" target="_blank" rel="noopener">Patents by Inventor Yipin Song（Justia）</a></li>
+<li><a href="https://patents.justia.com/inventor/zhouyu-zhang" target="_blank" rel="noopener">Patents by Inventor Zhouyu Zhang（Justia）</a></li>
+<li><a href="https://patents.justia.com/inventor/wenhao-mao" target="_blank" rel="noopener">Patents by Inventor Wenhao Mao（Justia）</a></li>
+<li><a href="https://ipqwery.com/ipowner/en/owner/ip/8154909-nanjing-lycore-technologies-co-ltd.html" target="_blank" rel="noopener">Nanjing Lycore Technologies 知识产权（IPqwery）</a></li>
+<li><a href="https://www.patsnap.com/resources/blog/rd-blog/thin-film-lithium-niobate-electro-optic-modulator-design-patent-landscape-patent-landscape/" target="_blank" rel="noopener">Thin Film Lithium Niobate Modulator Patents: Leaders &amp; Trends 2026（Patsnap）</a></li>
+<li><a href="https://www.cbinsights.com/company/jike-guanghe" target="_blank" rel="noopener">Jike Guanghe（CB Insights）</a></li>
+<li><a href="https://www.light-am.com/article/doi/10.37188/lam.2025.047" target="_blank" rel="noopener">Volume manufacturing of TFLN modulators with bandwidth &gt; 110 GHz based on 4-inch wafer（Light: Advanced Manufacturing）</a></li>
+<li><a href="https://www.eet-china.com/mp/a226555.html" target="_blank" rel="noopener">新硅聚合实现6英寸光学级硅基铌酸锂薄膜工程化制备（电子工程专辑）</a></li>
+<li><a href="https://www.omedasemi.com/news/512.html" target="_blank" rel="noopener">8寸LNOI晶圆供应（上海奥麦达）</a></li>
+<li><a href="http://caifuhao.eastmoney.com/news/20210220102413979526750" target="_blank" rel="noopener">源码资本等关联企业入股极刻光核（东方财富）</a></li>
+</ul></section>
+  </main>
+</div>
+
+<footer class="foot">极刻光核投资分析报告 · 2026-10-24 · 基于公开信息整理，不构成任何证券或股权买卖建议。</footer>
+
+<script>
+(function () {
+  var toc = document.getElementById("toc");
+  var narrow = window.matchMedia("(max-width: 900px)");
+  function syncToc() { if (narrow.matches) toc.removeAttribute("open"); else toc.setAttribute("open", ""); }
+  syncToc();
+  if (narrow.addEventListener) narrow.addEventListener("change", syncToc);
+  toc.addEventListener("click", function (e) {
+    if (e.target.tagName === "A" && narrow.matches) toc.removeAttribute("open");
+  });
+  if (!narrow.matches) toc.querySelector("summary").addEventListener("click", function (e) { e.preventDefault(); });
+
+  var links = Array.prototype.slice.call(toc.querySelectorAll("a"));
+  var byId = {};
+  links.forEach(function (a) { byId[a.getAttribute("href").slice(1)] = a; });
+  if (!("IntersectionObserver" in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      links.forEach(function (a) { a.classList.remove("active"); });
+      var a = byId[en.target.id];
+      if (a) a.classList.add("active");
+    });
+  }, { rootMargin: "0px 0px -70% 0px" });
+  document.querySelectorAll("main h2[id]").forEach(function (h) { io.observe(h); });
+})();
+</script>
